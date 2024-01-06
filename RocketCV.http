@@ -1,0 +1,6 @@
+@RocketCV_HostAddress = http://localhost:5195
+
+GET {{RocketCV_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

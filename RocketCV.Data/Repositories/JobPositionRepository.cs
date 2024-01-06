@@ -109,7 +109,7 @@ namespace RocketCV.Data.Repositories
         /// <param name="updateFieldName"></param>
         /// <param name="updateFieldValue"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateUser(ObjectId id, string updateFieldName, string updateFieldValue)
+        public async Task<bool> UpdateJobPosition(ObjectId id, string updateFieldName, string updateFieldValue)
         {
             var filter = Builders<JobPosition>.Filter.Eq("_id", id);
             var update = Builders<JobPosition>.Update.Set(updateFieldName, updateFieldValue);

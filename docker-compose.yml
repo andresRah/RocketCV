@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  rocketcv:
+    image: ${DOCKER_REGISTRY-}rocketcv
+    build:
+      context: .
+      dockerfile: RocketCV/Dockerfile
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017

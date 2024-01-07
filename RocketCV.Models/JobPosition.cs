@@ -13,13 +13,13 @@ namespace RocketCV.Models
         public ObjectId Id { get; set; }
 
         [BsonElement("title")]
-        public string Title { get; set; }
+        public required string Title { get; set; }
 
         [BsonElement("companyName")]
-        public string CompanyName { get; set; }
+        public required string CompanyName { get; set; }
 
         [BsonElement("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [BsonElement("startDate")]
         public DateTime StartDate { get; set; }
@@ -28,10 +28,10 @@ namespace RocketCV.Models
         public DateTime EndDate { get; set; }
 
         [BsonElement("city")]
-        public string City { get; set; }
+        public string? City { get; set; }
 
         [BsonElement("country")]
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         [BsonElement("isCurrent")]
         public bool IsCurrent { get; set; }

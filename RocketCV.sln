@@ -17,6 +17,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Rocketcv.Frontend", "RocketCV.Frontend\Rocketcv.Frontend.esproj", "{0C50DD83-0272-4A90-BDFA-D697ABEFBE69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketCV.Utils", "..\RocketCV.Utils\RocketCV.Utils.csproj", "{9135160F-8EFF-41C8-A7CB-4C5492192D89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{0C50DD83-0272-4A90-BDFA-D697ABEFBE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C50DD83-0272-4A90-BDFA-D697ABEFBE69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C50DD83-0272-4A90-BDFA-D697ABEFBE69}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9135160F-8EFF-41C8-A7CB-4C5492192D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9135160F-8EFF-41C8-A7CB-4C5492192D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9135160F-8EFF-41C8-A7CB-4C5492192D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9135160F-8EFF-41C8-A7CB-4C5492192D89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

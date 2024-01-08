@@ -65,6 +65,7 @@ Follow the instructions below to set up and run the RocketCV system with the new
    ```shell
    git clone https://github.com/andresRah/RocketCV.git
    cd rocketcv
+   docker-compose build
    docker-compose up -d
    ```
 
@@ -73,6 +74,12 @@ Follow the instructions below to set up and run the RocketCV system with the new
 Check the root folder - RocketCV.postman_collection
 
 https://documenter.getpostman.com/view/25622630/2s9YsJDDVz
+
+### Execution Postman
+![image](https://github.com/andresRah/RocketCV/assets/10521199/14f02826-8679-47d2-852d-6fe843c89c53)
+
+Setup the port number in the variables section, and the run the endpoints in order from 1 to 9
+![image](https://github.com/andresRah/RocketCV/assets/10521199/112c9c55-8f02-4add-a757-8fea8c217092)
 
 ### Testing
    ```shell

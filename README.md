@@ -63,7 +63,7 @@ Follow the instructions below to set up and run the RocketCV system with the new
 1. Clone the RocketCV repository to your local machine.
 
    ```shell
-   git clone https://github.com/your-repo/rocketcv.git
+   git clone https://github.com/andresRah/RocketCV.git
    cd rocketcv
    docker-compose up -d
    ```

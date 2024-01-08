@@ -172,8 +172,8 @@
                 var expires = DateTime.Now.AddMinutes(30);
 
                 var token = new JwtSecurityToken(
-                    issuer: "https://localhost:5001",
-                    audience: "https://localhost:5001",
+                    issuer: "https://localhost:53310",
+                    audience: "https://localhost:53310",
                     claims: claims,
                     expires: expires,
                     signingCredentials: creds

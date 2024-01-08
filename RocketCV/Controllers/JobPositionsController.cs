@@ -1,5 +1,6 @@
 ﻿namespace RocketCV.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using RocketCV.Models;
     using RocketCV.Services;
@@ -9,6 +10,7 @@
 
     [ApiVersion("1.0")]
     [ApiController]
+    [Authorize]
     [Route("api/v1/[controller]")]
     public class JobPositionsController : Controller
     {
@@ -39,6 +41,7 @@
         /// <param name="jobPositionId">The job position identifier.</param>
         /// <returns></returns>
         [HttpGet("{jobPositionId}")]
+        [Authorize(Roles = "USER")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JobPosition))]
         public async Task<IActionResult> GetJobPositionById(string jobPositionId)
         {
@@ -59,6 +62,7 @@
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllJobPositions")]
+        [Authorize(Roles = "USER")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<JobPositionDTO>))]
         public async Task<IActionResult> GetJobPositions()
         {
@@ -80,6 +84,7 @@
         /// <param name="request">The request.</param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -105,6 +110,7 @@
         /// <param name="request">The request.</param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize(Roles = "ADMIN")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<JobPositionDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -129,6 +135,7 @@
         /// <param name="jobPositionId">The job position identifier.</param>
         /// <returns></returns>
         [HttpDelete("{jobPositionId}")]
+        [Authorize(Roles = "ADMIN")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<JobPositionDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

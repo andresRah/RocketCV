@@ -39,7 +39,7 @@ namespace RocketCV.Data.Repositories
 
             return true;
         }
-
+        
         /// <summary>
         /// InsertJobPosition
         /// </summary>

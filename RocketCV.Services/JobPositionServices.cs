@@ -1,4 +1,6 @@
-﻿namespace RocketCV.Services
+﻿using RocketCV.Utils;
+
+namespace RocketCV.Services
 {
     using RocketCV.Services.Contracts;
     using System;
@@ -58,8 +60,6 @@
         {
             try
             {
-                var resultado = _repository.CheckConnection();
-
                 var result = await _repository.GetAllJobPositions();
 
                 var jobPositionsFiltered = result.Where(x => x.IsDisabled == false).Select(jobPosition =>
@@ -105,6 +105,14 @@
         {
             try
             {
+                if (entity.Validate().Count > 0)
+                {
+                    return ResponseFail(HttpStatusCode.BadRequest, new Collection<string>
+                    {
+                        ResponseMessages.BadRequest
+                    });
+                }
+
                 // TODO: Use auto-mapper
                 var jobPosition = new JobPosition
                 {

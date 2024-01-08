@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RocketCV.Controllers
 {
     [ApiController]
+    [Authorize(Roles = "ADMIN")]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {

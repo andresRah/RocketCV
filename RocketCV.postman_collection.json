@@ -7,7 +7,62 @@
 	},
 	"item": [
 		{
-			"name": "1. CreateRole",
+			"name": "1. CreateRole ADMIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"admin_role_id\", jsonData.role.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": \"ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/authenticate/roles/add",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"authenticate",
+						"roles",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.1 CreateRole USER",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"user_role_id\", jsonData.role.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -21,12 +76,11 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:53310/api/v1/authenticate/roles/add",
+					"raw": "https://{{site_url}}/api/v1/authenticate/roles/add",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"{{site_url}}"
 					],
-					"port": "53310",
 					"path": [
 						"api",
 						"v1",
@@ -39,13 +93,13 @@
 			"response": []
 		},
 		{
-			"name": "2. Register",
+			"name": "2. Register ADMIN User",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"andres.arevalopar@gmail.com\",\r\n  \"username\": \"andresrah\",\r\n  \"fullName\": \"Andres Arevalo\",\r\n  \"password\": \"P@ssword\",\r\n  \"confirmPassword\": \"P@ssword\"\r\n}",
+					"raw": "{\r\n  \"email\": \"andres.arevalo@gmail.com\",\r\n  \"username\": \"andresrah\",\r\n  \"fullName\": \"Andres Arevalo\",\r\n  \"password\": \"P@ssword123\",\r\n  \"confirmPassword\": \"P@ssword123\",\r\n  \"roles\": [\"{{admin_role_id}}\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -53,12 +107,11 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:53310/api/v1/authenticate/register",
+					"raw": "https://{{site_url}}/api/v1/authenticate/register",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"{{site_url}}"
 					],
-					"port": "53310",
 					"path": [
 						"api",
 						"v1",
@@ -70,13 +123,13 @@
 			"response": []
 		},
 		{
-			"name": "3. Authenticate",
+			"name": "2.1 Register USER User",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"andres.arevalopar@gmail.com\",\r\n  \"password\": \"P@ssword123\"\r\n}",
+					"raw": "{\r\n  \"email\": \"andres.arevalo@hotmail.com\",\r\n  \"username\": \"andresarevalo\",\r\n  \"fullName\": \"Andres Arevalo\",\r\n  \"password\": \"P@ssword123\",\r\n  \"confirmPassword\": \"P@ssword123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,12 +137,53 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:53310/api/v1/authenticate/login",
+					"raw": "https://{{site_url}}/api/v1/authenticate/register",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"{{site_url}}"
 					],
-					"port": "53310",
+					"path": [
+						"api",
+						"v1",
+						"authenticate",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Authenticate ADMIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"admin_token\", jsonData.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"andres.arevalo@gmail.com\",\r\n  \"password\": \"P@ssword123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/authenticate/login",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
 					"path": [
 						"api",
 						"v1",
@@ -101,14 +195,56 @@
 			"response": []
 		},
 		{
-			"name": "4. WeatherForecast ADMIN Role Only",
+			"name": "3.1 Authenticate USER",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"user_token\", jsonData.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"andres.arevalo@hotmail.com\",\r\n  \"password\": \"P@ssword123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/authenticate/login",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"authenticate",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. WeatherForecast ADMIN Role ✅",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYzYyMzFlMC1hMTNjLTRkNDAtOTA2My05MmUyZGNjZTA4M2MiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYW5kcmVzLmFyZXZhbG9AaG90bWFpbC5jb20iLCJqdGkiOiI0MWU1Y2FlNy0yZDFlLTQ2ZTQtYTYzMi1hYTM5NTBmOTBhYjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImJjNjIzMWUwLWExM2MtNGQ0MC05MDYzLTkyZTJkY2NlMDgzYyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFETUlOIiwiZXhwIjoxNzA0NzAyODUwLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.VbXOGlIkzPaOa9i57asK-5MC28UeI52U7DGH8-Wm69I",
+							"value": "{{admin_token}}",
 							"type": "string"
 						}
 					]
@@ -116,18 +252,341 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:53310/WeatherForecast",
+					"raw": "https://{{site_url}}/WeatherForecast",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"{{site_url}}"
 					],
-					"port": "53310",
 					"path": [
 						"WeatherForecast"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "4.1 WeatherForecast USER Role Fails ⛔",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{site_url}}/WeatherForecast",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"WeatherForecast"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. POST JobPosition ADMIN Role ✅",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"C#\",\r\n  \"companyName\": \"ABC Company\",\r\n  \"description\": \"Junior developer\",\r\n  \"startDate\": \"2022-01-08\",\r\n  \"endDate\": \"2024-01-08\",\r\n  \"city\": \"Los Angeles\",\r\n  \"country\": \"US\",\r\n  \"isCurrent\": true,\r\n  \"isRemote\": true,\r\n  \"isFreelance\": true,\r\n  \"isPartTime\": true,\r\n  \"isInternship\": false,\r\n  \"isVolunteer\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/JobPositions",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"JobPositions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.1 POST JobPosition USER Role Fails ⛔",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Ruby\",\r\n  \"companyName\": \"XYZ Company\",\r\n  \"description\": \"Mid developer\",\r\n  \"startDate\": \"2022-01-08\",\r\n  \"endDate\": \"2024-01-08\",\r\n  \"city\": \"Los Angeles\",\r\n  \"country\": \"US\",\r\n  \"isCurrent\": true,\r\n  \"isRemote\": true,\r\n  \"isFreelance\": true,\r\n  \"isPartTime\": true,\r\n  \"isInternship\": true,\r\n  \"isVolunteer\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/JobPositions",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"JobPositions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. GET All JobPositions ADMIN Role Fails ⛔",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/JobPositions/GetAllJobPositions",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"JobPositions",
+						"GetAllJobPositions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6.1 GET All JobPositions USER ✅",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/JobPositions/GetAllJobPositions",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"JobPositions",
+						"GetAllJobPositions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6.1 GET All JobPositions USER ✅ Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/JobPositions/659c2cda17732a6e09593837",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"JobPositions",
+						"659c2cda17732a6e09593837"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. PUT JobPosition",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"659c36d87216ae43d1bc4a3e\",\r\n  \"title\": \"NET CORE\",\r\n  \"companyName\": \"XYZ Company\",\r\n  \"description\": \"Mid developer\",\r\n  \"startDate\": \"2022-01-08\",\r\n  \"endDate\": \"2024-01-08\",\r\n  \"city\": \"Los Angeles\",\r\n  \"country\": \"US\",\r\n  \"isCurrent\": true,\r\n  \"isRemote\": true,\r\n  \"isFreelance\": true,\r\n  \"isPartTime\": true,\r\n  \"isInternship\": true,\r\n  \"isVolunteer\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/JobPositions",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"JobPositions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. DELETE JobPosition",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"andres.arevalo@hotmail.com\",\r\n  \"password\": \"P@ssword123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{site_url}}/api/v1/JobPositions/659c36d87216ae43d1bc4a3e",
+					"protocol": "https",
+					"host": [
+						"{{site_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"JobPositions",
+						"659c36d87216ae43d1bc4a3e"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "site_url",
+			"value": "localhost:49518"
+		},
+		{
+			"key": "admin_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "admin_role_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_role_id",
+			"value": "",
+			"type": "string"
 		}
 	]
 }

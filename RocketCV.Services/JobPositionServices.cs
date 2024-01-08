@@ -65,6 +65,7 @@ namespace RocketCV.Services
                 var jobPositionsFiltered = result.Where(x => x.IsDisabled == false).Select(jobPosition =>
                     new JobPositionDTO
                     {
+                        Id = jobPosition.Id.ToString(),
                         Title = jobPosition.Title,
                         CompanyName = jobPosition.CompanyName,
                         Description = jobPosition.Description,

@@ -53,7 +53,9 @@
             var appRole = new ApplicationRole { Name = request.Role };
             var createRole = await _roleManager.CreateAsync(appRole);
 
-            return Ok(new { message = "role created succesfully" });
+            var role = await _roleManager.FindByNameAsync(request.Role);
+
+            return Ok(new { message = "role created succesfully", role });
         }
 
         /// <summary>
@@ -92,7 +94,7 @@
                     Email = request.Email,
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     UserName = request.Email,
-
+                    Roles = request.Roles.Select(x => Guid.Parse(x)).ToList()
                 };
                 var createUserResult = await _userManager.CreateAsync(userExists, request.Password);
                 if (!createUserResult.Succeeded)
@@ -118,9 +120,6 @@
                     Success = true,
                     Message = "User registered successfully"
                 };
-
-
-
             }
             catch (Exception ex)
             {

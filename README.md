@@ -68,6 +68,12 @@ Follow the instructions below to set up and run the RocketCV system with the new
    docker-compose up -d
    ```
 
+### Postman Documentation
+
+Check the root folder - RocketCV.postman_collection
+
+https://documenter.getpostman.com/view/25622630/2s9YsJDDVz
+
 ### Testing
    ```shell
    dotnet test

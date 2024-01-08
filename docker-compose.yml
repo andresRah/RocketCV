@@ -6,7 +6,9 @@ services:
     build:
       context: .
       dockerfile: RocketCV/Dockerfile
+    depends_on:
+        - mongodb
   mongodb:
     image: mongo
     ports:
-      - 27017:27017
+      - "27017:27017"

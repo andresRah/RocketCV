@@ -56,6 +56,14 @@ public interface IJobPositionRepository
     Task<bool> UpdateJobPosition(ObjectId id, string updateFieldName, string updateFieldValue);
 
     /// <summary>
+    /// Updates the job position.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="jobPosition">The job position.</param>
+    /// <returns></returns>
+    Task<bool> UpdateJobPosition(ObjectId id, JobPosition jobPosition);
+
+    /// <summary>
     /// Deletes the job position by identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>

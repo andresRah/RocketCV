@@ -11,13 +11,14 @@ namespace RocketCV.Data.Repositories
         private IMongoCollection<JobPosition> _jobPositionsCollection;
 
         /// <summary>
-        /// JobPositionRepository
+        /// Initializes a new instance of the <see cref="JobPositionRepository"/> class.
         /// </summary>
-        /// <param name="connectionString"></param>
-        public JobPositionRepository(string connectionString)
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="databaseName">Name of the database.</param>
+        public JobPositionRepository(string connectionString, string databaseName = "rocketCV_DB")
         {
             _client = new MongoClient(connectionString);
-            _database = _client.GetDatabase("rocketCV_DB");
+            _database = _client.GetDatabase(databaseName);
             _jobPositionsCollection = _database.GetCollection<JobPosition>("JobPosition");
         }
 
@@ -47,7 +48,6 @@ namespace RocketCV.Data.Repositories
         public async Task InsertJobPosition(JobPosition jobPosition)
         {
             await _jobPositionsCollection.InsertOneAsync(jobPosition);
-            Console.WriteLine("User Inserted");
         }
 
         /// <summary>
@@ -119,6 +119,35 @@ namespace RocketCV.Data.Repositories
             return result.ModifiedCount != 0;
         }
 
+        /// <summary>
+        /// Updates the job position.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="jobPosition">The job position.</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateJobPosition(ObjectId id, JobPosition jobPosition)
+        {
+            var filter = Builders<JobPosition>.Filter.Eq("_id", id);
+            var update = Builders<JobPosition>.Update.Set("Title", jobPosition.Title)
+                .Set("CompanyName", jobPosition.CompanyName)
+                .Set("Description", jobPosition.Description)
+                .Set("StartDate", jobPosition.StartDate)
+                .Set("EndDate", jobPosition.EndDate)
+                .Set("City", jobPosition.City)
+                .Set("Country", jobPosition.Country)
+                .Set("IsCurrent", jobPosition.IsCurrent)
+                .Set("IsRemote", jobPosition.IsRemote)
+                .Set("IsFreelance", jobPosition.IsFreelance)
+                .Set("IsPartTime", jobPosition.IsPartTime)
+                .Set("IsInternship", jobPosition.IsInternship)
+                .Set("IsVolunteer", jobPosition.IsVolunteer)
+                .Set("LastModifiedDate", jobPosition.LastModifiedDate);
+
+            var result = await _jobPositionsCollection.UpdateOneAsync(filter, update);
+
+            return result.ModifiedCount != 0;
+        }
+        
 
         /// <summary>
         /// DeleteJobPositionById

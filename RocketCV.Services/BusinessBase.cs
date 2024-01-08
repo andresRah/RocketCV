@@ -105,11 +105,11 @@
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         /// <param name="entity">The entity.</param>
         /// <returns></returns>
-        public static Response<TEntity> ResponseSuccess<TEntity>(IList<TEntity> entity) where TEntity : class, new()
+        public static Response<TEntity> ResponseSuccess<TEntity>(IList<TEntity> entity, HttpStatusCode code = HttpStatusCode.OK) where TEntity : class, new()
         {
             return new Response<TEntity>
             {
-                ResponseCode = (int)HttpStatusCode.OK,
+                ResponseCode = (int)code,
                 TransactionComplete = true,
                 Message = new List<string> { ResponseMessages.Success },
                 Data = entity

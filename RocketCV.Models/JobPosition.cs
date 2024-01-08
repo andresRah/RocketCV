@@ -50,5 +50,14 @@ namespace RocketCV.Models
 
         [BsonElement("isVolunteer")]
         public bool IsVolunteer { get; set; }
+
+        [BsonElement("createdDate")]
+        public DateTime CreatedDate { get; set; }
+
+        [BsonElement("lastModifiedDate")]
+        public DateTime LastModifiedDate { get; set; }
+
+        [BsonElement("IsDisabled")]
+        public bool IsDisabled { get; set; }
     }
 }

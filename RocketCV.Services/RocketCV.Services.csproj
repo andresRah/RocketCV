@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RocketCV.Utils\RocketCV.Utils.csproj" />
     <ProjectReference Include="..\RocketCV.Data\RocketCV.Data.csproj" />
+    <ProjectReference Include="..\RocketCV.Utils\RocketCV.Utils.csproj" />
   </ItemGroup>
 
 </Project>
